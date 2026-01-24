@@ -1,0 +1,27 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: messageboard-db
+    environment:
+      POSTGRES_USER: itsmeharry
+      POSTGRES_PASSWORD: thisisnotastandardpasswordanditsactuallyreallylongsoihopeyouseeitprofessor
+      POSTGRES_DB: itsthedatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    image: messageboard-web:local
+    container_name: messageboard-web
+    depends_on:
+      - postgres
+    environment:
+      - CONNECTIONSTRING=Host=postgres;Port=5432;Database=itsthedatabase;Username=itsmeharry;Password=thisisnotastandardpasswordanditsactuallyreallylongsoihopeyouseeitprofessor
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    
+volumes:
+  postgres_data:
