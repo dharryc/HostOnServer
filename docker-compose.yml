@@ -6,8 +6,6 @@ services:
       POSTGRES_USER: itsmeharry
       POSTGRES_PASSWORD: thisisnotastandardpasswordanditsactuallyreallylongsoihopeyouseeitprofessor
       POSTGRES_DB: itsthedatabase
-    ports:
-      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
@@ -22,6 +20,27 @@ services:
     ports:
       - "3000:80"
     restart: unless-stopped
-    
+
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: harry_swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Denver
+      - URL=harryclass.duckdns.org
+      - VALIDATION=dns
+      - DNSPLUGIN=duckdns
+      - STAGING=true
+      - PROPAGATION=120
+    volumes:
+      - ./swag:/config
+    # ports:
+    #   - 443:443
+    #   - 80:80
+    restart: unless-stopped
+
 volumes:
   postgres_data:

@@ -5,7 +5,7 @@
 
 # dotenv files
 .env
-
+swag/
 # User-specific files
 *.rsuser
 *.suo
