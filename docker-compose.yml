@@ -17,8 +17,6 @@ services:
       - postgres
     environment:
       - CONNECTIONSTRING=Host=postgres;Port=5432;Database=itsthedatabase;Username=itsmeharry;Password=thisisnotastandardpasswordanditsactuallyreallylongsoihopeyouseeitprofessor
-    ports:
-      - "3000:80"
     restart: unless-stopped
 
   swag:
@@ -33,13 +31,11 @@ services:
       - URL=harryclass.duckdns.org
       - VALIDATION=dns
       - DNSPLUGIN=duckdns
-      - STAGING=true
-      - PROPAGATION=120
+      - PROPAGATION=420
     volumes:
       - ./swag:/config
-    # ports:
-    #   - 443:443
-    #   - 80:80
+    ports:
+      - 3000:443
     restart: unless-stopped
 
 volumes:
