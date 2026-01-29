@@ -34,6 +34,7 @@ services:
       - PROPAGATION=420
     volumes:
       - ./swag:/config
+      - ./nginx-config.conf:/config/nginx/site-confs/default.conf
     ports:
       - 3000:443
     restart: unless-stopped
