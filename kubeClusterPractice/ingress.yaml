@@ -4,7 +4,8 @@ metadata:
   name: harry-ingress
 spec:
   rules:
-  - http:
+  - host: 100.96.241.36
+    http:
       paths:
       - path: /
         pathType: Exact
