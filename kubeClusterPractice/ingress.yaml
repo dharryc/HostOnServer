@@ -4,11 +4,10 @@ metadata:
   name: harry-ingress
 spec:
   rules:
-  - host: 100.96.241.36
-    http:
+  - http:
       paths:
       - path: /
-        pathType: Exact
+        pathType: Prefix
         backend:
           service:
             name: fast-api
