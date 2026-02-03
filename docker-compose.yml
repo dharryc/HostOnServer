@@ -37,6 +37,7 @@ services:
       - ./nginx-config.conf:/config/nginx/site-confs/default.conf
     ports:
       - 3000:443
+      - 3090:803
     restart: unless-stopped
 
   aspire-dashboard:
