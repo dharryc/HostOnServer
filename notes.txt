@@ -1,0 +1,80 @@
+
+How does he get his local docker image to docker hub?
+    I followed allong, so I actually made and pushed an image to dockerhub as well.
+    Log in to dockerhub -->
+    create a new repo -->
+    copy the repo name <dharryc/kube-on-office1-practice>:<versionTag> -->
+    docker build -t <dharryc/kube-on-office1-practice>:<versionTag> ./{path to Dockerfile} -->
+    docker login -->
+    follow url to verify login -->
+    once logged in on whatever machine you're on -->
+    docker push <dharryc/kube-on-office1-practice>:<versionTag>
+
+
+What is a Pod?
+    A bunch of containers running together, sharing some attributes like networking (kind of vague, but that's what I got)
+
+
+How are Pods and Deployments related?
+    Pods seem more fine grained, and they seem to be a little bit harder to manage, and deployments are the way you actually hand off the making and managing of pods to kubernetes.
+
+
+Where can you get a "starter template" for a new deployment? (what website does he get his first deployment config from?)
+    the kubernetes documentation page
+
+
+How does a deployment know which docker image to deploy?
+    You tell the deployment.yaml file to run your docker image
+    so for me: image: <dharryc/kube-on-office1-practice>:<versionTag>
+
+
+Why should you add labels to your deployment?
+    So you know what's what, and you can actually keep track of what each deployment is doing and what it's supposed to be doing
+
+
+Why do you need labels in both the matchLabels attribute and the template/metadata/labels attribute?
+    match label seems to be how kubernetes knows which pods to run and manage, versus the template/metadata/label attribute names the pod itself and tells kubernetes some info about what the pod should have in it, and how it should run
+    Ahhhh, match labels also helps with the services to know what you're dealing with!
+
+
+What is a service?
+    Very cool! It's a built in load balancer/router that sets up traffic to go to your pods
+
+
+What attributes allow a service to reference a pod/deployment?
+    labels and the port mapping stuff?
+
+
+What command allows you to view pods in kuberentes?
+    kubectl get pods
+
+
+What command allows you to forward a port from your computer into a pod on kubernetes?
+    kubectl port-forward <podName?> <host>:<pod>
+
+
+How do you set environment variables inside kubernetes pods?
+    you have the env: tag in the deployment file
+    ...
+    env:
+        - name:
+          value:
+
+How do you update a pod in kubernetes?
+    kubectl apply -f .
+
+
+What is the purpose of an Ingress?
+    it lets the internet at large access your cluster
+
+
+When you change your code, how do you get the new version deployed on kubernetes?
+    update your docker image with the docker push command after building and re-tagging the image (version names?)
+    then update the kuberentes cluster to rebuild
+    then run your cluster again
+
+
+questions:
+why is there so much separation between all the .yaml kubernetes configurations? It seems like you could have ingress, services, and deployment stuff all in the same file, is it just for ease of access/updating?
+You have really granular control over how much resources are availible to containers with kubernetes, could you do this to set up things like linode? Why would you use a vm thing instead of just telling kubernetes to make a new pod for each vm that someone buys?
+How do you safely protect environment variables that need to be secret while still keeping CI/CD as fast and clean as possible? I can really easily see that there are times you'd have really sensitive stuff in there, so you can't just push it to dockerhub or github, but you also don't want to need to copy and paste those variables into prod every time you update.
