@@ -18,6 +18,11 @@ services:
     environment:
       - CONNECTIONSTRING=Host=postgres;Port=5432;Database=itsthedatabase;Username=itsmeharry;Password=thisisnotastandardpasswordanditsactuallyreallylongsoihopeyouseeitprofessor
     restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   swag:
     image: lscr.io/linuxserver/swag

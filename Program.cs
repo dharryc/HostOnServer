@@ -1,8 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using operationswithwebservers_dharryc.Components;
 using operationswithwebservers_dharryc.Data;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+builder.Host.UseSerilog((context, configuration) =>
+    configuration
+        .MinimumLevel.Information()
+        .WriteTo.Console()
+        .Enrich.FromLogContext()
+        .Enrich.WithProperty("Application", "MessageBoard"));
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
