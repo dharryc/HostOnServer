@@ -39,5 +39,10 @@ services:
       - 3000:443
     restart: unless-stopped
 
+  aspire-dashboard:
+    image: mcr.microsoft.com/dotnet/aspire-dashboard:latest
+    container_name: aspire-dashboard
+    restart: unless-stopped
+
 volumes:
   postgres_data:
